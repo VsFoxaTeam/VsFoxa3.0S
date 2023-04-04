@@ -1,0 +1,16 @@
+# The export folder, ignored cuz of bloat
+export/
+
+# I use flashdevelop so fuck this
+.vscode/
+BGSource/.vs
+vscode-project.hxml
+
+# newgrounds isnt used here
+APIStuff.hx
+
+# Other shit
+*.hxml
+.DS_Store
+*.hxproj
+foxa.hxproj
