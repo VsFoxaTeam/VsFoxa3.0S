@@ -101,14 +101,13 @@ class OptionsStateNew extends MusicBeatState
 
 			switch (options[curSelected])
 			{
-				/*case 'Controls':
-					FlxG.switchState(new ChangeKeybinds()); */
+			    case 'Controls':
+					FlxG.switchState(new ChangeKeybinds());
 				case 'Language':
 					FlxG.switchState(new ChangeLanguageState());
 				case 'Preferences':
 					openSubState(new PreferencesSubstate());
 				case 'Account':
-					trace('log in pls');
 					FlxG.switchState(new LogInScreen(new AccountOption()));
 			}
 		}
@@ -341,7 +340,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 					switch (options[curSelected])
 					{
 						case 'Framerate':
-							trace('framerate: ' + ClientPrefs.framerate);
 							ClientPrefs.framerate += add;
 							if (ClientPrefs.framerate < 60)
 								ClientPrefs.framerate = 60;
@@ -359,7 +357,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 								FlxG.updateFramerate = ClientPrefs.framerate;
 							}
 						case 'Note Delay':
-							trace('note offset: ' + ClientPrefs.offset);
 							var mult:Int = 1;
 							if (holdTime > 1.5)
 							{ // Double speed after 1.5 seconds holding
@@ -371,7 +368,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 							else if (ClientPrefs.offset > 500)
 								ClientPrefs.offset = 500;
 					}
-				reloadValues();
 
 				if (holdTime <= 0)
 					FlxG.sound.play(Paths.sound('selectMenu'));
@@ -382,6 +378,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				holdTime = 0;
 			}
 		}
+		
+		reloadValues();
 
 		if (showCharacter != null && showCharacter.animation.curAnim.finished)
 		{
@@ -612,20 +610,16 @@ class LogInScreen extends MusicBeatSubstate
 
 		if (FlxG.keys.justPressed.ENTER)
 		{
-			trace(nameBox.text);
-			trace(initialized);
 			if (nameBox.text == username)
 			{
 				FlxG.save.data.userName = nameBox.text;
 				FlxG.sound.play(Paths.sound('confirmMenu'), 0.4);
-				trace(FlxG.save.data.userName + "has been signed in!");
 				option.log();
 				close();
 			}
 			else
 			{
 				FlxG.sound.play(Paths.sound('errorMenu'), 0.4);
-				trace('you failed lol');
 				incorrect.text = "Log in failed, please check your account again.";
 				incorrect.color = 0xffff0000;
 				incorrect.x = 150;
@@ -633,7 +627,6 @@ class LogInScreen extends MusicBeatSubstate
 		}
 		if (FlxG.keys.justPressed.ESCAPE)
 		{
-			trace('aight imma head out');
 			FlxG.sound.music.stop();
 
 			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0.7);
